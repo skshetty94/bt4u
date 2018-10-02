@@ -1,3 +1,4 @@
+from __future__ import print_function
 import argparse
 import requests
 import json
@@ -15,9 +16,9 @@ def get_data_from_url(url, html_content_key):
 def get_route_id(all_routes_url):
 	soup = get_data_from_url(all_routes_url, "routeListHtml")
 	routes = soup.find_all("a", "list-group-item")
-	print "Applicable route ids: "
+	print("Applicable route ids: ")
 	for r in routes:
-		print r.attrs['data-routes'].split('|')[0]
+		print( r.attrs['data-routes'].split('|')[0])
 		
 all_routes_url = "https://commonlayer.bt4u.org/routes"
 parser = argparse.ArgumentParser(description= get_route_id(all_routes_url))
@@ -28,9 +29,9 @@ route_url = all_routes_url + "/" + args.route_id
 soup = get_data_from_url(route_url, "routeDetailsHtml")
 if soup:
 	stop_details = soup.find_all("div", "col-xs-10 col-sm-10 col-md-10 resized bordered")
-	print "\nStop details for " + args.route_id + ":\n"
+	print( "\nStop details for " + args.route_id + ":\n")
 	for i in range(len(stop_details)):
-		print stop_details[i].text
+		print( stop_details[i].text)
 else:
-	print "\nBus service not available on entered route id. :(\n"
+	print( "\nBus service not available on entered route id. :(\n")
 			
